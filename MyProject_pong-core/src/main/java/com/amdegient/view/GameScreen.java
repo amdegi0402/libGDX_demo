@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
 	private GameModel model;
 	private GameView view;
 	private GameController controller;
-	private final int WINNING_SCORE = 1;
+	private final int WINNING_SCORE = 10;
 	private BitmapFont font; //カウントダウンを描画するフォント
 	private float countdownTimer = 3; //3秒からカウントダウンを描画するフォント
 	private boolean gameStarted = false; //ゲームが開始されたか管理
@@ -76,6 +76,11 @@ public class GameScreen implements Screen {
 
 			// ビューで描画
 			view.render(model);
+			
+			//一定時間おきにアイテムを表示
+			model.itemUpdate(delta);
+			
+		model.checkBallItemCollision();
 
 			// 終了条件を確認
 			checkForWinner();

@@ -37,6 +37,7 @@ public class TitleScreen implements Screen {
 	private ImageButton playButton; // playボタン（画像を使ったボタンを作成するためのオブジェクト）
 	private Texture backgroundTexture;// 背景画像
 	private SpriteBatch batch;// テクスチャを効率的に描画する
+	private Texture titleTexture; //タイトル画像のテクスチャ
 
 	public TitleScreen(MyGame game) {
 		this.game = game;
@@ -77,6 +78,8 @@ public class TitleScreen implements Screen {
 
 		// 背景画像を読み込む
 		backgroundTexture = new Texture(Gdx.files.internal("background.png"));
+		//タイトル文字読み込み
+		titleTexture = new Texture(Gdx.files.internal("title.png"));
 	}
 
 	@Override
@@ -87,7 +90,14 @@ public class TitleScreen implements Screen {
 
 		// 画面を描画
 		batch.begin();
+
+		//タイトル文字を幅400px,高さ150pxに縮小
+		float desireWidth = 400;
+		float desireHeight = 150;
+
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		batch.draw(titleTexture, Gdx.graphics.getWidth() / 2 - desireWidth / 2, Gdx.graphics.getHeight() / 2, desireWidth, desireHeight);//タイトル文字の表示位置
+
 		batch.end();
 
 		// ステージを描画

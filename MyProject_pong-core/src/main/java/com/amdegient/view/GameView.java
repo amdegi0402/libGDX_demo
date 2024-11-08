@@ -29,6 +29,7 @@ public class GameView {
 	private SpriteBatch batch; // 複数の画像（テクスチャ）を一度に描画し、描画処理を効率化するためのクラス
 	private Texture paddleTexture; // ゲームに表示するための2D画像（テクスチャ）を読み込み、管理するクラス
 	private Texture ballTexture;
+	private Texture itemTexture;
 	private BitmapFont font;// テキスト（文字列）を描画するためのクラス
 
 	/*
@@ -41,6 +42,7 @@ public class GameView {
 		try {
 			paddleTexture = new Texture("paddle.png"); // 画像を読み込み
 			ballTexture = new Texture("ball.png");
+			itemTexture = new Texture("item.png");
 		} catch (com.badlogic.gdx.utils.GdxRuntimeException e) {
 			System.err.println("画像ファイルが見つからない。もしくは破損しています。: " + e.getMessage());
 			// エラーが発生した場合はゲームを終了
@@ -65,11 +67,21 @@ public class GameView {
 		// 描画の開始
 		batch.begin();
 
+		//アイテム取得数の表示
+		//font.draw(batch, "Item Count: " + model.getItemCount(), 20, Gdx.graphics.getHeight() - 30);
+
 		// プレイヤーとAIのパドルを描画
 		drawPaddles(model);
 
 		// ボールを描画
 		drawBall(model);
+		
+
+		//アイテムの描画
+		if(model.isItemActive()) {
+			Rectangle item = model.getItem(); //GameModel クラスから**アイテムの情報（位置とサイズ）**を取得
+			batch.draw(itemTexture, item.x, item.y, item.width, item.height);
+		}
 
 		// スコアを描画
 		drawScores(model);
